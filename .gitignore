@@ -1,0 +1,6 @@
+**/*.iml
+*/test/
+/.idea/
+**/META-INF/
+**/target/
+**/dependency-reduced-pom.xml
