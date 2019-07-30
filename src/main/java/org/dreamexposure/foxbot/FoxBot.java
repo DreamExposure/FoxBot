@@ -4,6 +4,7 @@ import org.dreamexposure.foxbot.conf.Settings;
 import org.dreamexposure.foxbot.listeners.discord.MemberJoinListener;
 import org.dreamexposure.foxbot.listeners.discord.ReadyEventListener;
 import org.dreamexposure.foxbot.network.database.DatabaseManager;
+import org.dreamexposure.foxbot.service.TimerManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
@@ -60,6 +61,10 @@ public class FoxBot {
             //TODO: send exception to logger and/or to discord webhooks
             System.exit(4);
         }
+
+        //Add Shutdown hooks...
+        Runtime.getRuntime().addShutdownHook(new Thread(TimerManager.getManager()::shutdown));
+        Runtime.getRuntime().addShutdownHook(new Thread(DatabaseManager.getManager()::disconnectFromMySQL));
 
         client.login().block();
     }
