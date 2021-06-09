@@ -13,7 +13,6 @@ public class ServletConfig implements
         WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
     public void customize(ConfigurableServletWebServerFactory factory) {
-        factory.setPort(Integer.valueOf(Settings.PORT.get()));
         factory.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
     }
 }

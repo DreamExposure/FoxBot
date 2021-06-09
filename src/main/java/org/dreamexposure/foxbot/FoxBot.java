@@ -35,7 +35,7 @@ public class FoxBot {
 
     public static void main(String[] args) throws IOException {
         Properties p = new Properties();
-        p.load(new FileReader(new File("settings.properties")));
+        p.load(new FileReader("settings.properties"));
         Settings.init(p);
 
         //TODO: Start logger
