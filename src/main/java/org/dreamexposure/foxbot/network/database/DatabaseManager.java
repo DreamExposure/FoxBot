@@ -48,7 +48,7 @@ public class DatabaseManager {
             DatabaseSettings settings = new DatabaseSettings(Settings.SQL_HOST.get(), Settings.SQL_PORT.get(),
                 Settings.SQL_DB.get(), Settings.SQL_USER.get(), Settings.SQL_PASS.get(), Settings.SQL_PREFIX.get());
 
-            info = connect(settings);
+            info = org.dreamexposure.novautils.database.DatabaseManager.connectToMySQL(settings);
             System.out.println("Connected to MySQL database!");
         } catch (Exception e) {
             System.out.println("Failed to connect to MySQL database! Is it properly configured?");
@@ -279,19 +279,5 @@ public class DatabaseManager {
             //TODO: Send to logger
         }
         return mirrors;
-    }
-
-    private DatabaseInfo connect(DatabaseSettings settings) {
-        HikariDataSource ds = new HikariDataSource();
-        String connectionURL = "jdbc:mysql://" + settings.getHostname() + ":" + settings.getPort();
-        if (settings.getDatabase() != null) {
-            connectionURL = connectionURL + "/" + settings.getDatabase() + "?useSSL=true";
-        }
-
-        ds.setJdbcUrl(connectionURL);
-        ds.setUsername(settings.getUser());
-        ds.setPassword(settings.getPassword());
-        System.out.println("Database connection successful!");
-        return new DatabaseInfo(ds, settings, null);
     }
 }
